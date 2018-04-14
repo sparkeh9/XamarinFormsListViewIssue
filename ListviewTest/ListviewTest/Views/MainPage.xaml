@@ -17,7 +17,13 @@
                                             Orientation="Horizontal"
                                             HeightRequest="200"
                                             ItemsSource="{Binding ItemsSource}"
-                                            ItemTemplateSelector="{StaticResource DataSelector}" />
+                                            ItemTemplateSelector="{StaticResource DataSelector}">
+            <controls:HorizontalListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="test"></Label>
+                </DataTemplate>
+            </controls:HorizontalListView.ItemTemplate>
+        </controls:HorizontalListView>
     </StackLayout>
 
 </ContentPage>

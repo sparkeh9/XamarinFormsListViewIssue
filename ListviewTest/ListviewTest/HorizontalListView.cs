@@ -22,11 +22,11 @@
             set => SetValue( ItemsSourceProperty, value );
         }
 
-//        public DataTemplate ItemTemplate
-//        {
-//            get => (DataTemplate) GetValue( ItemTemplateProperty );
-//            set => SetValue( ItemTemplateProperty, value );
-//        }
+        public DataTemplate ItemTemplate
+        {
+            get => (DataTemplate) GetValue( ItemTemplateProperty );
+            set => SetValue( ItemTemplateProperty, value );
+        }
 
         public ICommand SelectedCommand
         {
@@ -44,8 +44,8 @@
             BindableProperty.Create( "ItemsSource", typeof( IEnumerable ), typeof( HorizontalListView ), default( IEnumerable ),
                                      BindingMode.Default, null, HandleBindingPropertyChangedDelegate );
 
-//        public static readonly BindableProperty ItemTemplateProperty =
-//            BindableProperty.Create( "ItemTemplate", typeof( DataTemplate ), typeof( HorizontalListView ), default( DataTemplate ) );
+        public static readonly BindableProperty ItemTemplateProperty =
+            BindableProperty.Create( "ItemTemplate", typeof( DataTemplate ), typeof( HorizontalListView ), default( DataTemplate ) );
 
         public static readonly BindableProperty ItemTemplateSelectorProperty =
             BindableProperty.Create( "ItemTemplateSelector", typeof( DataTemplateSelector ), typeof( HorizontalListView ), default( DataTemplateSelector ) );
@@ -110,7 +110,7 @@
 
                 try
                 {
-                    var view = ItemTemplateSelector.CreateContent() as View;
+                    var view = (ItemTemplateSelector ?? ItemTemplate).CreateContent() as View;
                     view.BindingContext = item;
                     view.GestureRecognizers.Add( new TapGestureRecognizer
                     {
