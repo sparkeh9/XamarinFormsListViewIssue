@@ -110,7 +110,23 @@
 
                 try
                 {
-                    var view = (ItemTemplateSelector ?? ItemTemplate).CreateContent() as View;
+                    var template = ItemTemplateSelector != null ?
+                        ItemTemplateSelector.SelectTemplate( item, null )
+                        : ItemTemplate;
+
+                    if ( template == null )
+                        continue;
+
+                    var templateInstance = template.CreateContent();
+
+                    var templateView = templateInstance as View;
+                    var templateCell = templateInstance as ViewCell;
+
+                    if (templateView == null && templateCell == null)
+                        throw new InvalidOperationException("DataTemplate must be either a Cell or a View");
+                    
+                    var view = templateView ?? templateCell.View;
+
                     view.BindingContext = item;
                     view.GestureRecognizers.Add( new TapGestureRecognizer
                     {
